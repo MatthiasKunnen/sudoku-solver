@@ -1,7 +1,9 @@
 <div *ngIf="!cell.value" class="sudoku-cell sudoku-cell-grid">
-    <div *ngFor="let number of possibilities">
-        {{ cell.possibilities.indexOf(number) > -1 ? number : '' }}
-    </div>
+    <ng-container *ngIf="displayPossibilities">
+        <div *ngFor="let number of possibilities">
+            {{ cell.possibilities.indexOf(number) > -1 ? number : '' }}
+        </div>
+    </ng-container>
 </div>
 <div *ngIf="cell.value" class="sudoku-cell">
     {{ cell.value }}

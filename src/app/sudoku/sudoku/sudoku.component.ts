@@ -8,4 +8,5 @@ import { Sudoku } from '../shared/sudoku.model';
 })
 export class SudokuComponent {
     @Input() public sudoku: Sudoku;
+    @Input() public displayPossibilities = true;
 }

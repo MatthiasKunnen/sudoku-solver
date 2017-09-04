@@ -9,6 +9,7 @@ import { Cell } from '../shared/cell.model';
 })
 export class SudokuCellComponent {
     @Input() public cell: Cell;
+    @Input() public displayPossibilities = true;
 
     public possibilities = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 }

@@ -1,5 +1,8 @@
 <div class="sudoku">
     <ng-container *ngFor="let row of sudoku.grid">
-        <app-sudoku-cell *ngFor="let cell of row" [cell]="cell"></app-sudoku-cell>
+        <app-sudoku-cell *ngFor="let cell of row"
+                         [cell]="cell"
+                         [displayPossibilities]="displayPossibilities"
+        ></app-sudoku-cell>
     </ng-container>
 </div>

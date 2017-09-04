@@ -5,7 +5,8 @@
     border-top: $border-accent;
 }
 
-.sudoku-cell {
+:host {
+    height: $cellSize;
     font-weight: bold;
     font-size: 1.5em;
 
@@ -37,18 +38,20 @@
             @extend %blockBorder;
         }
     }
+}
 
-    &-grid {
-        display: grid;
-        grid-template-columns: repeat(3, auto);
-        grid-template-rows: repeat(3, auto);
+.sudoku-cell-grid {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-rows: repeat(3, auto);
 
-        font-size: 0.8em;
-        font-weight: normal;
-        line-height: 1.5;
+    $line-height: 1.5;
+    line-height: $line-height;
 
-        > * {
-            height: $cellSize / 3;
-        }
+    font-size: $cellSize / 3 / $line-height;
+    font-weight: normal;
+
+    > * {
+        height: $cellSize / 3;
     }
 }

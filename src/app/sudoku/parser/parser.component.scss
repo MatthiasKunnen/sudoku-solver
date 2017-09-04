@@ -1,0 +1,14 @@
+@import '../sudoku/variables';
+
+#input-form {
+    padding-bottom: 3em;
+}
+
+#raw-sudoku {
+    font-family: $default-monospaced;
+}
+
+app-sudoku {
+    display: block;
+    margin-bottom: 1em;
+}

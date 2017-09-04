@@ -1,0 +1,7 @@
+@import 'variables';
+
+.sudoku {
+    display: grid;
+    grid-template-columns: repeat(9, $cellSize);
+    grid-template-rows: repeat(9, $cellSize);
+}

@@ -1,0 +1,54 @@
+@import '../sudoku/variables';
+
+%blockBorder {
+    // Top row and block horizontal rows
+    border-top: $border-accent;
+}
+
+.sudoku-cell {
+    font-weight: bold;
+    font-size: 1.5em;
+
+    line-height: $cellSize;
+    text-align: center;
+
+    border-top: $border-normal;
+    border-left: $border-normal;
+    border-bottom: none;
+
+    &:nth-child(3n + 1) {
+        // Accentuate each block's right border
+        border-left: $border-accent;
+    }
+
+    &:nth-child(9n) {
+        // Last column, make up for missing right border
+        border-right: $border-accent;
+    }
+
+    &:nth-last-child(-n + 9) {
+        // Bottom row, make up for missing bottom border
+        border-bottom: $border-accent;
+    }
+
+    @for $i from 1 through 9 {
+        // Horizontal block borders and top border
+        &:nth-child(27n + #{$i}) {
+            @extend %blockBorder;
+        }
+    }
+
+    &-grid {
+        display: grid;
+        grid-template-columns: repeat(3, auto);
+        grid-template-rows: repeat(3, auto);
+
+        font-size: 0.8em;
+        font-weight: normal;
+        line-height: 1.5;
+
+        > * {
+            height: $cellSize / 3;
+        }
+    }
+}

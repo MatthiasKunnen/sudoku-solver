@@ -195,8 +195,8 @@ describe('Parsing sudoku', () => {
 
                 const result: Array<T> = [];
 
-                for (let y = y1; y < y2; y++) {
-                    for (let x = x1; x < x2; x++) {
+                for (let y = y1; y <= y2; y++) {
+                    for (let x = x1; x <= x2; x++) {
                         result.push(input[y][x]);
                     }
                 }
@@ -209,8 +209,8 @@ describe('Parsing sudoku', () => {
                     for (let c = 0; c < 9; c++) {
                         const y1 = Math.floor(r / 3) * 3;
                         const x1 = Math.floor(c / 3) * 3;
-                        const y2 = y1 + 3;
-                        const x2 = x1 + 3;
+                        const y2 = y1 + 2;
+                        const x2 = x1 + 2;
 
                         assert.equal(rawSudoku.sudoku.grid[r][c].block.length, 9,
                             `Bock of cell(${r}, ${c}) doesn't have 9 cells`);

@@ -82,11 +82,11 @@ export class SudokuService {
                 // Set block
                 const y1 = Math.floor(rIndex / 3) * 3;
                 const x1 = Math.floor(cIndex / 3) * 3;
-                const y2 = y1 + 3;
-                const x2 = x1 + 3;
+                const y2 = y1 + 2;
+                const x2 = x1 + 2;
 
-                for (let y = y1; y < y2; y++) {
-                    for (let x = x1; x < x2; x++) {
+                for (let y = y1; y <= y2; y++) {
+                    for (let x = x1; x <= x2; x++) {
                         cell.block.push(sudoku.grid[y][x]);
                     }
                 }

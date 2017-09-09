@@ -165,7 +165,7 @@ describe('Parsing sudoku', () => {
             for (const rawSudoku of rawSudokus) {
                 for (let r = 0; r < 9; r++) { // Don't rely on Cell.rowIndex
                     for (let c = 0; c < 9; c++) {
-                        assert.equal(
+                        assert.deepEqual(
                             rawSudoku.sudoku.grid[r][c].row.map(getCellValue),
                             rawSudoku.array[r],
                             `Row is not correct for cell (${r}, ${c}).`,
@@ -179,7 +179,7 @@ describe('Parsing sudoku', () => {
             for (const rawSudoku of rawSudokus) {
                 for (let r = 0; r < 9; r++) {
                     for (let c = 0; c < 9; c++) {
-                        assert.equal(
+                        assert.deepEqual(
                             rawSudoku.sudoku.grid[r][c].column.map(getCellValue),
                             rawSudoku.array.map((a) => a[c]),
                             `Column is not correct for cell (${r}, ${c}).`,
@@ -212,7 +212,7 @@ describe('Parsing sudoku', () => {
                         const y2 = y1 + 2;
                         const x2 = x1 + 2;
 
-                        assert.equal(
+                        assert.deepEqual(
                             rawSudoku.sudoku.grid[r][c].block.map(getCellValue),
                             getBlock(rawSudoku.array, y1, x1, y2, x2),
                             `Cell (${r}, ${c}) should contain the following block:`

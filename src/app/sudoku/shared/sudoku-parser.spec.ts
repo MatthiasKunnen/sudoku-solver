@@ -209,9 +209,11 @@ describe('Parsing sudoku', () => {
                     for (let c = 0; c < 9; c++) {
                         const y1 = Math.floor(r / 3) * 3;
                         const x1 = Math.floor(c / 3) * 3;
-                        const y2 = y1 + 2;
-                        const x2 = x1 + 2;
+                        const y2 = y1 + 3;
+                        const x2 = x1 + 3;
 
+                        assert.equal(rawSudoku.sudoku.grid[r][c].block.length, 9,
+                            `Bock of cell(${r}, ${c}) doesn't have 9 cells`);
                         assert.deepEqual(
                             rawSudoku.sudoku.grid[r][c].block.map(getCellValue),
                             getBlock(rawSudoku.array, y1, x1, y2, x2),

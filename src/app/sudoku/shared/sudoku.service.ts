@@ -27,7 +27,7 @@ export class SudokuService {
     public parseSudoku(input: string): Sudoku {
         const sudoku = new Sudoku();
 
-        input = input.replace('/ /g', '');
+        input = input.trim().replace(/ /g, '');
         const rowsData = input.split('\n');
 
         // Fill remaining rows

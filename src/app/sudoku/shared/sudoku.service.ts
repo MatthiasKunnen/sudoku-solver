@@ -34,7 +34,6 @@ export class SudokuService {
         while (rowsData.length < 9) {
             rowsData.push(','.repeat(8));
         }
-        console.log(rowsData);
 
         rowsData.forEach((rowData, rIndex) => {
             if (rIndex === 9) {
@@ -54,7 +53,6 @@ export class SudokuService {
                     throw new RangeError('Sudoku cannot exceed 9 columns');
                 }
 
-                // console.log(`Cell(${rIndex}, ${cIndex}): ${value}`);
                 const cell = new Cell({
                     rowIndex: rIndex,
                     columnIndex: cIndex,

@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.sudokuService.getActiveSudoku().subscribe(sudoku => this.sudoku = sudoku);
+        this.sudokuService.getActiveSudoku()
+            .subscribe(sudoku => this.sudoku = sudoku);
     }
 }

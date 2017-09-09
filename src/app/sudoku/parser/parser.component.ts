@@ -23,7 +23,8 @@ export class SudokuParserComponent {
         this.sudokuInputErrors = [];
         if (input.match(/[^\s+|,|\d]/) !== null) {
             this.sudokuInputValid = false;
-            this.sudokuInputErrors.push('Input contains illegal characters. Only comma, space and numbers allowed.');
+            this.sudokuInputErrors.push('Input contains illegal characters. ' +
+                'Only comma, space and numbers allowed.');
         }
 
         if (input.match(/[0]/) !== null) {

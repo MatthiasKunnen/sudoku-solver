@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
-import { Sudoku } from './sudoku.model';
 import { Cell } from './cell.model';
+import { Sudoku } from './sudoku.model';
 
 @Injectable()
 export class SudokuService {

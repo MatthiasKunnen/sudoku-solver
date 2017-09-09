@@ -1,10 +1,10 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { SudokuParserComponent } from './parser.component';
 import { SudokuService } from '../shared/sudoku.service';
 import { SudokuModule } from '../sudoku/sudoku.module';
+import { SudokuParserComponent } from './parser.component';
 
 @NgModule({
     declarations: [

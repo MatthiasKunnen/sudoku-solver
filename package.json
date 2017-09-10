@@ -30,6 +30,7 @@
         "lodash": "^4.17.4",
         "pump": "1.*",
         "rxjs": "^5.4.2",
+        "sequency": "^0.10.0",
         "zone.js": "^0.8.14"
     },
     "devDependencies": {

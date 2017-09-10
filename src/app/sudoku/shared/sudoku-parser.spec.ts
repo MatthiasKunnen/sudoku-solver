@@ -159,8 +159,24 @@ describe('Parsing sudoku', () => {
         });
     });
 
-    describe('groups', () => {
-        const getCellValue = (c: Cell) => c.value;
+    const getBlock = <T>(input: Array<Array<T>>, y1: number, x1: number,
+                         y2?: number, x2?: number): Array<T> => {
+
+        y2 = y2 || y1 + 2;
+        x2 = x2 || x1 + 2;
+
+        const result: Array<T> = [];
+
+        for (let y = y1; y <= y2; y++) {
+            for (let x = x1; x <= x2; x++) {
+                result.push(input[y][x]);
+            }
+        }
+
+        return result;
+    };
+    const getCellValue = (c: Cell) => c.value;
+    describe('cell groups', () => {
         it('rows should be correct', () => {
             for (const rawSudoku of rawSudokus) {
                 for (let r = 0; r < 9; r++) { // Don't rely on Cell.rowIndex
@@ -190,20 +206,6 @@ describe('Parsing sudoku', () => {
         });
 
         it('blocks should be correct', () => {
-            const getBlock = <T>(input: Array<Array<T>>, y1: number, x1: number,
-                              y2: number, x2: number): Array<T> => {
-
-                const result: Array<T> = [];
-
-                for (let y = y1; y <= y2; y++) {
-                    for (let x = x1; x <= x2; x++) {
-                        result.push(input[y][x]);
-                    }
-                }
-
-                return result;
-            };
-
             for (const rawSudoku of rawSudokus) {
                 for (let r = 0; r < 9; r++) {
                     for (let c = 0; c < 9; c++) {
@@ -223,6 +225,48 @@ describe('Parsing sudoku', () => {
                     }
                 }
             }
+        });
+    });
+
+    describe('groups', () => {
+        it('columns should be correct', () => {
+            for (const rawSudoku of rawSudokus) {
+                assert.equal(rawSudoku.sudoku.columns.length, 9,
+                    'Column length should be exactly 9.');
+                rawSudoku.sudoku.columns.forEach((column, c) => {
+                    assert.deepEqual(column.map(getCellValue),
+                        rawSudoku.sudoku.grid.map((row) => row[c]).map(getCellValue));
+                });
+            }
+        });
+
+        it('blocks should have 9 cells', () => {
+            for (const rawSudoku of rawSudokus) {
+                assert.equal(rawSudoku.sudoku.blocks.length, 9,
+                    'Block length should be exactly 9.');
+            }
+        });
+
+        it('blocks should be designated correctly', () => {
+            const sudoku = sudokuService.parseSudoku('');
+
+            let i = 0;
+            sudoku.blocks.forEach((block) => {
+                i++;
+                block.forEach((cell) => cell.value = i);
+            });
+
+            getBlock(sudoku.grid, 0, 0).forEach((cell) => assert.equal(cell.value, 1));
+            getBlock(sudoku.grid, 0, 3).forEach((cell) => assert.equal(cell.value, 2));
+            getBlock(sudoku.grid, 0, 6).forEach((cell) => assert.equal(cell.value, 3));
+
+            getBlock(sudoku.grid, 3, 0).forEach((cell) => assert.equal(cell.value, 4));
+            getBlock(sudoku.grid, 3, 3).forEach((cell) => assert.equal(cell.value, 5));
+            getBlock(sudoku.grid, 3, 6).forEach((cell) => assert.equal(cell.value, 6));
+
+            getBlock(sudoku.grid, 6, 0).forEach((cell) => assert.equal(cell.value, 7));
+            getBlock(sudoku.grid, 6, 3).forEach((cell) => assert.equal(cell.value, 8));
+            getBlock(sudoku.grid, 6, 6).forEach((cell) => assert.equal(cell.value, 9));
         });
     });
 });

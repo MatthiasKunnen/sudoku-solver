@@ -4,18 +4,18 @@ import { Cell } from './cell.model';
 import { Sudoku } from './sudoku.model';
 import { SudokuService } from './sudoku.service';
 
-interface RawSudoku {
+export interface RawSudoku {
     input: string;
     array: Array<Array<number>>;
     sudoku?: Sudoku;
 }
 
-interface SolvableRawSudoku {
+export interface SolvableRawSudoku {
     complete: RawSudoku;
     start: RawSudoku;
 }
 
-const sudoku1: SolvableRawSudoku = {
+export const sudoku1: SolvableRawSudoku = {
     complete: {
         input: `
             4,3,5,2,6,9,7,8,1
@@ -64,7 +64,7 @@ const sudoku1: SolvableRawSudoku = {
     },
 };
 
-const solvableRawSudokus: Array<SolvableRawSudoku> = [
+export const solvableRawSudokus: Array<SolvableRawSudoku> = [
     sudoku1,
 ];
 

@@ -1,3 +1,5 @@
+import { remove } from 'lodash';
+
 export class Cell {
     public block?: Array<Cell> = [];
 
@@ -36,7 +38,7 @@ export class Cell {
      * @return {boolean} true is a possibility was removed, false otherwise.
      */
     public eliminatePossibility(possibility: number): boolean {
-        throw Error('Not implemented');
+        return remove(this.possibilities, (p) => p === possibility).length > 0;
     }
 
     /**

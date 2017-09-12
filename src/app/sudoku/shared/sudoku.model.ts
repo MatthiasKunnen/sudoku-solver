@@ -41,7 +41,6 @@ export class Sudoku {
         for (const group of this.getGroups()) {
             for (const list of group) {
                 if (Sudoku.hasDuplicateCells(list)) {
-                    console.log(list);
                     return false;
                 }
             }

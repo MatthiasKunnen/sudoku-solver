@@ -11,8 +11,51 @@ export class Sudoku {
         Object.assign(this, init);
     }
 
+    /**
+     * Returns true when the list contains duplicates.
+     * @param {Array<Cell>} list
+     * @returns {boolean}
+     */
+    private static hasDuplicateCells(list: Array<Cell>): boolean {
+        const values = list
+            .filter(cell => cell.value !== undefined)
+            .map(cell => cell.value);
+
+        return Sudoku.hasDuplicates(values);
+    }
+
+    /**
+     * Test if an array contains duplicate items.
+     * @param {Array<T>} list
+     * @returns {boolean}
+     */
+    private static hasDuplicates<T>(list: Array<T>): boolean {
+        return (new Set<T>(list)).size !== list.length;
+    }
+
+    /**
+     * Checks if values are valid.
+     * @returns {boolean} true if the values are valid, false otherwise.
+     */
     public areValuesValid(): boolean {
-        throw Error('Not implemented');
+        for (const group of this.getGroups()) {
+            for (const list of group) {
+                if (Sudoku.hasDuplicateCells(list)) {
+                    console.log(list);
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Get the rows, columns and blocks of the sudoku.
+     * @returns {Array<Array<Array<Cell>>>}
+     */
+    public getGroups(): Array<Array<Array<Cell>>> {
+        return [this.grid, this.columns, this.blocks];
     }
 
     /**

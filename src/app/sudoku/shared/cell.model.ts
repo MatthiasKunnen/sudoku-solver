@@ -1,4 +1,5 @@
 import { remove } from 'lodash';
+import { asSequence } from 'sequency';
 
 export class Cell {
     public block?: Array<Cell> = [];
@@ -30,7 +31,27 @@ export class Cell {
      * @return {boolean} true if a possibility changed.
      */
     public computePossibilities(): boolean {
-        throw Error('Not implemented');
+        if (this.possibilities.length === 0 || this.value !== undefined) {
+            return false; // No need to calculate
+        }
+
+        let changed;
+
+        for (const group of this.getGroups()) {
+            for (const v of asSequence(group)
+                .filter(c => c.value !== undefined)
+                .map(c => c.value)
+                .toList()) {
+                if (this.eliminatePossibility(v)) {
+                    if (this.possibilities.length === 0) {
+                        return true; // Stop eliminating
+                    }
+                    changed = true;
+                }
+            }
+        }
+
+        return changed;
     }
 
     /**

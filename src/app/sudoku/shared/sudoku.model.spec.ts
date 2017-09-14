@@ -1,6 +1,10 @@
 import { assert } from 'chai';
 
-import { minimalSudokuInput } from './cell.model.spec';
+import {
+    checkSudokuPossibilities,
+    minimalSudokuChecks,
+    minimalSudokuInput,
+} from './cell.model.spec';
 import { sudoku1 } from './sudoku-parser.spec';
 import { Sudoku } from './sudoku.model';
 import { SudokuService } from './sudoku.service';
@@ -43,6 +47,21 @@ describe('Sudoku', () => {
             for (const sudoku of validSudokus) {
                 assert.isTrue(sudoku.areValuesValid());
             }
+        });
+    });
+
+    describe('possibility check', () => {
+        it('should succeed', () => {
+            const sudoku = sudokuService.parseSudoku(minimalSudokuInput);
+            sudoku.runCompletePossibilityCheck();
+            checkSudokuPossibilities(sudoku.grid, minimalSudokuChecks);
+        });
+
+        it('should fail', () => {
+            const sudoku = sudokuService.parseSudoku(minimalSudokuInput);
+            sudoku.runCompletePossibilityCheck();
+            sudoku.grid[8][8].possibilities.push(0);
+            checkSudokuPossibilities(sudoku.grid, minimalSudokuChecks, false);
         });
     });
 

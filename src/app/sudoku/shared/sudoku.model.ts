@@ -50,6 +50,14 @@ export class Sudoku {
     }
 
     /**
+     * Sets the possibilities on all cells.
+     * @returns {boolean} true if any possibilities were changed, false otherwise.
+     */
+    public runCompletePossibilityCheck(): boolean {
+        throw Error('Not implemented');
+    }
+
+    /**
      * Get the rows, columns and blocks of the sudoku.
      * @returns {Array<Array<Array<Cell>>>}
      */

@@ -65,6 +65,17 @@ describe('Sudoku', () => {
         });
     });
 
+    describe('solve status', () => {
+        it('should be solved', () => {
+            const sudoku = sudokuService.parseSudoku(sudoku1.complete.input);
+            assert.isTrue(sudoku.isSolved());
+        });
+        it('should be unsolved', () => {
+            const sudoku = sudokuService.parseSudoku(sudoku1.start.input);
+            assert.isFalse(sudoku.isSolved());
+        });
+    });
+
     describe('Linear Possibility Elimination', () => {
         let sudoku: Sudoku;
         let sudokuCopy: Sudoku;

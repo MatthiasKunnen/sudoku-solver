@@ -66,6 +66,14 @@ export class Sudoku {
     }
 
     /**
+     * Checks if the sudoku is complete.
+     * @returns {boolean} true if the sudoku is complete, false otherwise.
+     */
+    public isSolved(): boolean {
+        throw Error('Not implemented');
+    }
+
+    /**
      * Searches groups for cells which only have one possibility.
      * Found cells get their value set.
      * @return {number} The amount of cells found

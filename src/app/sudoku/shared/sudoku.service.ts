@@ -62,6 +62,7 @@ export class SudokuService {
                     cell.value = Number(value);
                 }
 
+                sudoku.cells.push(cell);
                 row.push(cell);
             });
 

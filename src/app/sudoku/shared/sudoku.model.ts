@@ -7,6 +7,8 @@ export class Sudoku {
 
     public blocks: Array<Array<Cell>> = Array();
 
+    public cells: Array<Cell> = Array();
+
     public constructor(init?: Partial<Sudoku>) {
         Object.assign(this, init);
     }

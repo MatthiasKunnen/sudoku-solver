@@ -66,6 +66,10 @@ export class Cell {
      * Propagates the changed value through the groups.
      */
     public propagateValueChange(): void {
-        throw Error('Not implemented');
+        for (const group of this.getGroups()) {
+            for (const cell of group) {
+                cell.eliminatePossibility(this.value);
+            }
+        }
     }
 }

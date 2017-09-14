@@ -56,7 +56,14 @@ export class Sudoku {
      * @returns {boolean} true if any possibilities were changed, false otherwise.
      */
     public runCompletePossibilityCheck(): boolean {
-        throw Error('Not implemented');
+        let changed = false;
+        for (const cell of this.cells) {
+            if (cell.computePossibilities()) {
+                changed = true;
+            }
+        }
+
+        return changed;
     }
 
     /**

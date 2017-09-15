@@ -31,7 +31,7 @@ export class Cell {
      * @return {boolean} true if a possibility changed.
      */
     public computePossibilities(): boolean {
-        if (this.possibilities.length === 0 || this.value !== undefined) {
+        if (this.possibilities.length === 0 || this.hasValue()) {
             return false; // No need to calculate
         }
 
@@ -39,7 +39,7 @@ export class Cell {
 
         for (const group of this.getGroups()) {
             for (const v of asSequence(group)
-                .filter(c => c.value !== undefined)
+                .filter(c => c.hasValue())
                 .map(c => c.value)
                 .toList()) {
                 if (this.eliminatePossibility(v)) {
@@ -60,6 +60,14 @@ export class Cell {
      */
     public eliminatePossibility(possibility: number): boolean {
         return remove(this.possibilities, (p) => p === possibility).length > 0;
+    }
+
+    /**
+     * Checks if the cell has a value.
+     * @returns {boolean}
+     */
+    public hasValue(): boolean {
+        return typeof this.value === 'number';
     }
 
     /**

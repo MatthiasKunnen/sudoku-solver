@@ -1,4 +1,5 @@
 import { Cell } from './cell.model';
+import { asSequence } from 'sequency';
 
 export class Sudoku {
     public grid?: Array<Array<Cell>> = Array();
@@ -20,7 +21,7 @@ export class Sudoku {
      */
     private static hasDuplicateCells(list: Array<Cell>): boolean {
         const values = list
-            .filter(cell => cell.value !== undefined)
+            .filter(cell => cell.hasValue())
             .map(cell => cell.value);
 
         return Sudoku.hasDuplicates(values);
@@ -75,11 +76,11 @@ export class Sudoku {
     }
 
     /**
-     * Checks if the sudoku is complete.
+     * Checks if the sudoku is complete. Doesn't check valid state.
      * @returns {boolean} true if the sudoku is complete, false otherwise.
      */
     public isSolved(): boolean {
-        throw Error('Not implemented');
+        return asSequence(this.cells).all(c => c.hasValue());
     }
 
     /**

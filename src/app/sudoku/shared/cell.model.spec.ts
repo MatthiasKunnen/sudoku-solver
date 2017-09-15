@@ -153,6 +153,24 @@ describe('Cell', () => {
         });
     });
 
+    describe('has value', () => {
+        it('null should fail', () => {
+            const cell = new Cell();
+            cell.value = null;
+            assert.isFalse(cell.hasValue());
+        });
+        it('undefined should fail', () => {
+            const cell = new Cell();
+            cell.value = undefined;
+            assert.isFalse(cell.hasValue());
+        });
+        it('number should succeed', () => {
+            const cell = new Cell();
+            cell.value = 4;
+            assert.isTrue(cell.hasValue());
+        });
+    });
+
     describe('Possibility computation', () => {
         const sudokus: Array<SolvableRawSudoku> = [
             sudoku1,

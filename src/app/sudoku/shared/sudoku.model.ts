@@ -93,7 +93,7 @@ export class Sudoku {
     }
 
     /**
-     * Searches groups for cells that allow only a certain number.
+     * Searches groups for cells that allow a certain number only in one cell.
      * Found cells get their value set.
      * @return {number} The amount of cells found.
      */

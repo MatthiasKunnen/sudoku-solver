@@ -106,15 +106,39 @@ describe('Sudoku', () => {
         });
     });
 
-    describe('Unique possibility', () => {
-        it('should be eliminated', () => {
-            pending();
+    describe('Single possibility', () => {
+        it('should have value after run', () => {
+            const sudoku = sudokuService.parseSudoku(`
+                1,2,3,4,5,6,7
+
+
+                 , , , , , , , ,8
+            `);
+            sudoku.runCompletePossibilityCheck();
+            sudoku.runSinglePossibility();
+
+            assert.equal(sudoku.grid[0][8].value, 9,
+                'Value "9" expected at (0, 9).');
         });
     });
 
-    describe('Single possibility', () => {
-        it('should be eliminated', () => {
-            pending();
+    describe('Unique possibility', () => {
+        it('should have value after run', () => {
+            const sudoku = sudokuService.parseSudoku(`
+                 ,1
+
+
+
+                1
+
+                 , , ,1
+                 , , , , , ,1
+            `);
+            sudoku.runCompletePossibilityCheck();
+            sudoku.runUniquePossibility();
+
+            assert.equal(sudoku.grid[8][2].value, 1,
+                'Value "5" expected at (8, 2).');
         });
     });
 });

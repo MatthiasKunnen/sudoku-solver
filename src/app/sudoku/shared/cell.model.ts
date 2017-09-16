@@ -76,7 +76,9 @@ export class Cell {
     public propagateValueChange(): void {
         for (const group of this.getGroups()) {
             for (const cell of group) {
-                cell.eliminatePossibility(this.value);
+                if (!cell.hasValue()) {
+                    cell.eliminatePossibility(this.value);
+                }
             }
         }
     }

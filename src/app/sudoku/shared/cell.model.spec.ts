@@ -231,7 +231,7 @@ describe('Cell', () => {
             cell.propagateValueChange();
             for (const group of cell.getGroups()) {
                 assert.isFalse(asSequence(group)
-                    .any((c: Cell) => c.possibilities.includes(newValue)));
+                    .any((c: Cell) => !c.hasValue() && c.possibilities.includes(newValue)));
             }
         });
     });

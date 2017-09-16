@@ -89,7 +89,21 @@ export class Sudoku {
      * @return {number} The amount of cells found
      */
     public runSinglePossibility(): number {
-        throw Error('Not implemented');
+        let counter = 0;
+
+        for (const group of this.getGroups()) {
+            for (const list of group) {
+                for (const cell of list.filter(c => !c.hasValue())) {
+                    if (cell.possibilities.length === 1) {
+                        cell.value = cell.possibilities[0];
+                        cell.propagateValueChange();
+                        counter++;
+                    }
+                }
+            }
+        }
+
+        return counter;
     }
 
     /**

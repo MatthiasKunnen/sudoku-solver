@@ -98,7 +98,35 @@ export class Sudoku {
      * @return {number} The amount of cells found.
      */
     public runUniquePossibility(): number {
-        throw Error('Not implemented');
+        let counter = 0;
+
+        for (const group of this.getGroups()) {
+            for (const list of group) {
+                const possibilities: { [key: number]: Array<Cell> } = {};
+
+                for (let i = 1; i <= 9; i++) {
+                    possibilities[i] = [];
+                }
+
+                for (const cell of list.filter(c => !c.hasValue())) {
+                    for (const possibility of cell.possibilities) {
+                        possibilities[possibility].push(cell);
+                    }
+                }
+
+                for (const number of Object.keys(possibilities)) {
+                    const value = possibilities[number];
+                    if (value.length === 1) {
+                        const c = value[0];
+                        c.value = Number(number);
+                        c.propagateValueChange();
+                        counter++;
+                    }
+                }
+            }
+        }
+
+        return counter;
     }
 
     /**

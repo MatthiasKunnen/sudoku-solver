@@ -59,7 +59,9 @@ export class Cell {
      * @return {boolean} true is a possibility was removed, false otherwise.
      */
     public eliminatePossibility(possibility: number): boolean {
-        return remove(this.possibilities, (p) => p === possibility).length > 0;
+        return this.hasValue()
+            ? false
+            : remove(this.possibilities, (p) => p === possibility).length > 0;
     }
 
     /**

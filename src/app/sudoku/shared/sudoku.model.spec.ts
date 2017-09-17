@@ -82,7 +82,9 @@ describe('Sudoku', () => {
 
         beforeEach(() => {
             sudoku = sudokuService.parseSudoku(minimalSudokuInput);
+            sudoku.runCompletePossibilityCheck();
             sudokuCopy = sudokuService.parseSudoku(minimalSudokuInput);
+            sudokuCopy.runCompletePossibilityCheck();
         });
 
         it('sudokus should equal each other before modification', () => {
@@ -90,19 +92,10 @@ describe('Sudoku', () => {
         });
 
         it('cell (6, 0) shouldn\'t have 7 as a possibility.', () => {
-            assert.isFalse(sudoku.runLPE() > 1,
-                'LPE eliminated more than 1 possibility.');
-            assert.notInclude(sudoku.grid[0][6].possibilities, 7,
+            assert.equal(sudoku.runLPE(), 7,
+                'LPE didn\'t eliminated exactly 7 possibilities.');
+            assert.notInclude(sudoku.grid[6][0].possibilities, 7,
                 `LPE didn't eliminate '7' as a possibility.`);
-        });
-
-        it('LPE shouldn\'t have side effects', () => {
-            sudoku.runLPE();
-
-            // Reinstate normal changes
-            sudoku.grid[0][6].possibilities = sudokuCopy.grid[0][6].possibilities;
-
-            assert.deepEqual(sudoku, sudokuCopy, 'Side effects are caused by LPE.');
         });
     });
 

@@ -1,4 +1,6 @@
+import { every } from 'lodash';
 import { asSequence } from 'sequency';
+
 import { Cell } from './cell.model';
 
 export class Sudoku {
@@ -116,17 +118,7 @@ export class Sudoku {
 
         for (const group of this.getGroups()) {
             for (const list of group) {
-                const possibilities: { [key: number]: Array<Cell> } = {};
-
-                for (let i = 1; i <= 9; i++) {
-                    possibilities[i] = [];
-                }
-
-                for (const cell of list.filter(c => !c.hasValue())) {
-                    for (const possibility of cell.possibilities) {
-                        possibilities[possibility].push(cell);
-                    }
-                }
+                const possibilities = this.getGroupedCellPossibilities(list);
 
                 for (const number of Object.keys(possibilities)) {
                     const value = possibilities[number];
@@ -148,6 +140,58 @@ export class Sudoku {
      * @return {number} The amount of possibilities that were eliminated.
      */
     public runLPE(): number {
-        throw new Error('applyLPE is not implemented.');
+        let counter = 0;
+
+        const eliminatePossibility: (list: Array<Cell>, number: number) => void =
+            (list, number) => {
+                list.forEach(c => counter += c.eliminatePossibility(number) ? 1 : 0);
+            };
+
+        for (const block of this.blocks) {
+            const possibilities = this.getGroupedCellPossibilities(block);
+            for (const key of Object.keys(possibilities)) {
+                const number = Number(key);
+                const list: Array<Cell> = possibilities[key];
+                if (list.length > 1) {
+                    const c1 = list[0];
+                    const ci = c1.columnIndex;
+                    const ri = c1.rowIndex;
+
+                    if (every(list, c => c.rowIndex === ri)) {
+                        const blockCIndex = c1.block[0].columnIndex;
+                        const toEliminate = asSequence(c1.row)
+                            .filter(c => c.columnIndex < blockCIndex
+                                || c.columnIndex > blockCIndex + 2)
+                            .toArray();
+                        eliminatePossibility(toEliminate, number);
+                    } else if (every(list, c => c.columnIndex === ci)) {
+                        const blockCRIndex = c1.block[0].rowIndex;
+                        const toEliminate = asSequence(c1.column)
+                            .filter(c => c.rowIndex < blockCRIndex
+                                || c.rowIndex > blockCRIndex + 2)
+                            .toArray();
+                        eliminatePossibility(toEliminate, number);
+                    }
+                }
+            }
+        }
+
+        return counter;
+    }
+
+    private getGroupedCellPossibilities(list: Array<Cell>): { [key: number]: Array<Cell> } {
+        const possibilities: { [key: number]: Array<Cell> } = {};
+
+        for (let i = 1; i <= 9; i++) {
+            possibilities[i] = [];
+        }
+
+        for (const cell of list.filter(c => !c.hasValue())) {
+            for (const possibility of cell.possibilities) {
+                possibilities[possibility].push(cell);
+            }
+        }
+
+        return possibilities;
     }
 }

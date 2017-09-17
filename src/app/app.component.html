@@ -1,4 +1,16 @@
 <div class="container">
     <app-sudoku-parser></app-sudoku-parser>
-    <app-sudoku *ngIf="sudoku" [sudoku]="sudoku"></app-sudoku>
+    <div *ngIf="sudoku" class="text-center">
+        <app-sudoku [sudoku]="sudoku"></app-sudoku>
+        <div id="options" class="btn-group" role="group">
+            <div class="btn btn-primary" (click)="solve()">Solve</div>
+            <div class="btn btn-secondary" (click)="runCompletePossibilityCheck()">Possibility check</div>
+            <div class="btn btn-secondary" (click)="runSingleSolver()">Singe possibility solver</div>
+            <div class="btn btn-secondary" (click)="runUniqueSolver()">Unique possibility solver</div>
+            <div class="btn btn-secondary" (click)="runLPE()">LPE</div>
+        </div>
+        <p class="text-left">
+            <code class="d-block" *ngFor="let result of results">{{ result }}</code>
+        </p>
+    </div>
 </div>

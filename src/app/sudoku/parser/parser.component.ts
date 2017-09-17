@@ -52,7 +52,6 @@ export class SudokuParserComponent {
     }
 
     public onSubmit() {
-        console.log('submitted');
         this.sudokuService.setActiveSudoku(this.sudoku);
         this.isVisible = false;
     }

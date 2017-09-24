@@ -70,6 +70,47 @@ export class Sudoku {
     }
 
     /**
+     * Sets the columns, blocks and cell's groups using the sudoku's grid.
+     */
+    public setGroups(): void {
+        // Calculate columns first to prevent excessive looping
+        for (let c = 0; c < 9; c++) {
+            this.columns.push(this.grid.map((row) => row[c]));
+        }
+
+        // Set this blocks
+        for (let r = 0; r < 9; r += 3) {
+            for (let c = 0; c < 9; c += 3) {
+                const block: Array<Cell> = [];
+                const y2 = r + 2;
+                const x2 = c + 2;
+
+                for (let y = r; y <= y2; y++) {
+                    for (let x = c; x <= x2; x++) {
+                        block.push(this.grid[y][x]);
+                    }
+                }
+
+                this.blocks.push(block);
+            }
+        }
+
+        // Set cell groups
+        this.grid.forEach((row, rIndex) => {
+            row.forEach((cell, cIndex) => {
+                cell.row = row; // Set rows
+                cell.column = this.columns[cIndex]; // Set columns
+
+                // Set block
+                const y1 = Math.floor(rIndex / 3) * 3;
+                const x1 = Math.floor(cIndex / 3);
+
+                cell.block = this.blocks[y1 + x1];
+            });
+        });
+    }
+
+    /**
      * Get the rows, columns and blocks of the sudoku.
      * @returns {Array<Array<Array<Cell>>>}
      */

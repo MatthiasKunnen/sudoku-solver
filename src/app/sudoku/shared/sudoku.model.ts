@@ -17,6 +17,38 @@ export class Sudoku {
     }
 
     /**
+     * Create a sudoku from an array representation of a grid.
+     * A valid input is assumed.
+     * @param {Array<Array<number | Array<number>>>} input
+     * @returns {Sudoku}
+     */
+    public static createFromGrid(input: Array<Array<number | Array<number>>>): Sudoku {
+        const sudoku = new Sudoku();
+
+        input.forEach((row, rIndex) => {
+            const cellRow: Array<Cell> = [];
+            row.forEach((cellInput, cIndex) => {
+                const cell = new Cell({
+                    rowIndex: rIndex,
+                    columnIndex: cIndex,
+                });
+
+                if (typeof cellInput === 'number') {
+                    cell.value = cellInput;
+                } else if (Array.isArray(cellInput)) {
+                    cell.possibilities = cellInput;
+                }
+
+                sudoku.cells.push(cell);
+            });
+            sudoku.grid.push(cellRow);
+        });
+
+        sudoku.setGroups();
+        return sudoku;
+    }
+
+    /**
      * Returns true when the list contains duplicates.
      * @param {Array<Cell>} list
      * @returns {boolean}
